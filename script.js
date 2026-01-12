@@ -88,13 +88,14 @@ function addToCart(productId) {
     .then(data => {
         if (data.success) {
             updateCartUI(productId, data.quantity);
+            showNotification('Товар добавлен в корзину', 'success');
         } else {
-            alert('Ошибка: ' + (data.message || 'Не удалось добавить товар'));
+            showNotification(data.message || 'Не удалось добавить товар', 'error');
         }
     })
     .catch(error => {
         console.error('Error:', error);
-        alert('Произошла ошибка при добавлении товара');
+        showNotification('Произошла ошибка при добавлении товара', 'error');
     });
 }
 
@@ -127,12 +128,12 @@ function changeQuantity(productId, change) {
                 location.reload();
             }
         } else {
-            alert('Ошибка: ' + (data.message || 'Не удалось изменить количество'));
+            showNotification(data.message || 'Не удалось изменить количество', 'error');
         }
     })
     .catch(error => {
         console.error('Error:', error);
-        alert('Произошла ошибка при изменении количества');
+        showNotification('Произошла ошибка при изменении количества', 'error');
     });
 }
 
@@ -157,12 +158,12 @@ function updateCartQuantity(productId, newQuantity) {
         if (data.success) {
             location.reload();
         } else {
-            alert('Ошибка: ' + (data.message || 'Не удалось изменить количество'));
+            showNotification(data.message || 'Не удалось изменить количество', 'error');
         }
     })
     .catch(error => {
         console.error('Error:', error);
-        alert('Произошла ошибка при изменении количества');
+        showNotification('Произошла ошибка при изменении количества', 'error');
     });
 }
 
@@ -188,10 +189,6 @@ function updateCartUI(productId, quantity) {
 
 // Удаление из корзины
 function removeFromCart(productId) {
-    if (!confirm('Удалить товар из корзины?')) {
-        return;
-    }
-    
     const formData = new FormData();
     formData.append('action', 'remove');
     formData.append('product_id', productId);
@@ -203,15 +200,49 @@ function removeFromCart(productId) {
     .then(response => response.json())
     .then(data => {
         if (data.success) {
+            showNotification('Товар удален из корзины', 'success');
             location.reload();
         } else {
-            alert('Ошибка: ' + (data.message || 'Не удалось удалить товар'));
+            showNotification(data.message || 'Не удалось удалить товар', 'error');
         }
     })
     .catch(error => {
         console.error('Error:', error);
-        alert('Произошла ошибка при удалении товара');
+        showNotification('Произошла ошибка при удалении товара', 'error');
     });
+}
+
+// Система уведомлений (Toast)
+function showNotification(message, type = 'success') {
+    // Удаляем существующие уведомления
+    const existingNotifications = document.querySelectorAll('.toast-notification');
+    existingNotifications.forEach(notif => notif.remove());
+    
+    // Создаем новое уведомление
+    const notification = document.createElement('div');
+    notification.className = `toast-notification toast-${type}`;
+    
+    const icon = type === 'success' ? 'fa-check-circle' : type === 'error' ? 'fa-exclamation-circle' : 'fa-info-circle';
+    
+    notification.innerHTML = `
+        <i class="fas ${icon}"></i>
+        <span>${message}</span>
+    `;
+    
+    document.body.appendChild(notification);
+    
+    // Анимация появления
+    setTimeout(() => {
+        notification.classList.add('show');
+    }, 10);
+    
+    // Автоматическое скрытие через 3 секунды
+    setTimeout(() => {
+        notification.classList.remove('show');
+        setTimeout(() => {
+            notification.remove();
+        }, 300);
+    }, 3000);
 }
 
 // Плавная прокрутка
