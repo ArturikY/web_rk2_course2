@@ -17,19 +17,18 @@ $products = getAllProducts();
                     <th>Наименование</th>
                     <th>Описание</th>
                     <th>Цена</th>
-                    <th>Действия</th>
                 </tr>
             </thead>
             <tbody>
                 <?php if (empty($products)): ?>
                     <tr>
-                        <td colspan="5" style="text-align: center; padding: 2rem;">
+                        <td colspan="4" style="text-align: center; padding: 2rem;">
                             Товары отсутствуют
                         </td>
                     </tr>
                 <?php else: ?>
                     <?php foreach ($products as $product): ?>
-                        <tr>
+                        <tr class="product-row-clickable" onclick="window.location.href='product.php?id=<?php echo $product['id']; ?>'" style="cursor: pointer;">
                             <td>
                                 <div class="table-product-image">
                                     <?php if ($product['image'] && file_exists($product['image'])): ?>
@@ -52,11 +51,6 @@ $products = getAllProducts();
                             </td>
                             <td>
                                 <div class="table-product-price"><?php echo number_format($product['price'], 0, ',', ' '); ?> ₽</div>
-                            </td>
-                            <td>
-                                <a href="product.php?id=<?php echo $product['id']; ?>" class="btn-view-product" style="display: inline-block; width: auto; padding: 0.5rem 1rem;">
-                                    Подробнее
-                                </a>
                             </td>
                         </tr>
                     <?php endforeach; ?>

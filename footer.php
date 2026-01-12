@@ -11,8 +11,8 @@
                 <div class="footer-section">
                     <h3>Контакты</h3>
                     <ul class="contact-list">
-                        <li><i class="fas fa-phone"></i> +7 (495) 123-45-67</li>
-                        <li><i class="fas fa-envelope"></i> info@techshop.ru</li>
+                        <li><i class="fas fa-phone"></i> <a href="tel:+74951234567">+7 (495) 123-45-67</a></li>
+                        <li><i class="fas fa-envelope"></i> <a href="mailto:info@techshop.ru">info@techshop.ru</a></li>
                         <li><i class="fas fa-map-marker-alt"></i> г. Москва, ул. Техническая, д. 1</li>
                     </ul>
                 </div>
@@ -28,9 +28,9 @@
                 <div class="footer-section">
                     <h3>Мы в соцсетях</h3>
                     <div class="social-links">
-                        <a href="#" class="social-link"><i class="fab fa-vk"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-telegram"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="https://vk.com" target="_blank" rel="noopener noreferrer" class="social-link"><i class="fab fa-vk"></i></a>
+                        <a href="https://telegram.org" target="_blank" rel="noopener noreferrer" class="social-link"><i class="fab fa-telegram"></i></a>
+                        <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="social-link"><i class="fab fa-instagram"></i></a>
                     </div>
                 </div>
             </div>

@@ -41,8 +41,14 @@ $total = 0;
                         <div class="cart-item-price"><?php echo number_format($item['price'], 0, ',', ' '); ?> ₽ за шт.</div>
                     </div>
                     
-                    <div class="cart-item-quantity">
-                        Количество: <?php echo $item['quantity']; ?>
+                    <div class="cart-item-quantity-controls">
+                        <button class="btn-quantity-small" onclick="updateCartQuantity(<?php echo $item['product_id']; ?>, <?php echo $item['quantity'] - 1; ?>)">
+                            <i class="fas fa-minus"></i>
+                        </button>
+                        <span class="cart-quantity-display-small" id="cart-quantity-<?php echo $item['product_id']; ?>"><?php echo $item['quantity']; ?></span>
+                        <button class="btn-quantity-small" onclick="updateCartQuantity(<?php echo $item['product_id']; ?>, <?php echo $item['quantity'] + 1; ?>)" <?php echo $item['quantity'] >= $item['stock_quantity'] ? 'disabled' : ''; ?>>
+                            <i class="fas fa-plus"></i>
+                        </button>
                     </div>
                     
                     <div class="cart-item-price">

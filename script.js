@@ -76,10 +76,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Добавление в корзину
 function addToCart(productId) {
-    if (!confirm('Добавить товар в корзину?')) {
-        return;
-    }
-    
     const formData = new FormData();
     formData.append('action', 'add');
     formData.append('product_id', productId);
@@ -91,10 +87,7 @@ function addToCart(productId) {
     .then(response => response.json())
     .then(data => {
         if (data.success) {
-            alert('Товар добавлен в корзину!');
-            if (window.location.pathname.includes('cart.php')) {
-                location.reload();
-            }
+            updateCartUI(productId, data.quantity);
         } else {
             alert('Ошибка: ' + (data.message || 'Не удалось добавить товар'));
         }
@@ -103,6 +96,94 @@ function addToCart(productId) {
         console.error('Error:', error);
         alert('Произошла ошибка при добавлении товара');
     });
+}
+
+// Изменение количества на странице продукта
+function changeQuantity(productId, change) {
+    const quantityDisplay = document.getElementById('quantity-' + productId);
+    const currentQuantity = parseInt(quantityDisplay.textContent);
+    const newQuantity = currentQuantity + change;
+    
+    if (newQuantity <= 0) {
+        removeFromCart(productId);
+        return;
+    }
+    
+    const formData = new FormData();
+    formData.append('action', 'update');
+    formData.append('product_id', productId);
+    formData.append('quantity', newQuantity);
+    
+    fetch('cart_ajax.php', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            quantityDisplay.textContent = data.quantity;
+            // Перезагружаем страницу для обновления кнопок +/- в зависимости от наличия
+            if (window.location.pathname.includes('product.php')) {
+                location.reload();
+            }
+        } else {
+            alert('Ошибка: ' + (data.message || 'Не удалось изменить количество'));
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Произошла ошибка при изменении количества');
+    });
+}
+
+// Обновление количества в корзине
+function updateCartQuantity(productId, newQuantity) {
+    if (newQuantity <= 0) {
+        removeFromCart(productId);
+        return;
+    }
+    
+    const formData = new FormData();
+    formData.append('action', 'update');
+    formData.append('product_id', productId);
+    formData.append('quantity', newQuantity);
+    
+    fetch('cart_ajax.php', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            location.reload();
+        } else {
+            alert('Ошибка: ' + (data.message || 'Не удалось изменить количество'));
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Произошла ошибка при изменении количества');
+    });
+}
+
+// Обновление UI корзины на странице продукта
+function updateCartUI(productId, quantity) {
+    const controlsDiv = document.getElementById('cart-controls-' + productId);
+    if (!controlsDiv) return;
+    
+    if (quantity > 0) {
+        controlsDiv.innerHTML = `
+            <div class="cart-quantity-controls">
+                <button class="btn-quantity" onclick="changeQuantity(${productId}, -1)">
+                    <i class="fas fa-minus"></i>
+                </button>
+                <span class="cart-quantity-display" id="quantity-${productId}">${quantity}</span>
+                <button class="btn-quantity" onclick="changeQuantity(${productId}, 1)">
+                    <i class="fas fa-plus"></i>
+                </button>
+            </div>
+        `;
+    }
 }
 
 // Удаление из корзины

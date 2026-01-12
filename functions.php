@@ -110,6 +110,40 @@ function removeFromCart($userId, $productId) {
     return $success;
 }
 
+// Получение количества товара в корзине
+function getCartItemQuantity($userId, $productId) {
+    $conn = getDBConnection();
+    $stmt = $conn->prepare("SELECT quantity FROM cart WHERE user_id = ? AND product_id = ?");
+    $stmt->bind_param("ii", $userId, $productId);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $quantity = 0;
+    
+    if ($result && $result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        $quantity = $row['quantity'];
+    }
+    
+    $stmt->close();
+    $conn->close();
+    return $quantity;
+}
+
+// Обновление количества товара в корзине
+function updateCartQuantity($userId, $productId, $quantity) {
+    if ($quantity <= 0) {
+        return removeFromCart($userId, $productId);
+    }
+    
+    $conn = getDBConnection();
+    $stmt = $conn->prepare("UPDATE cart SET quantity = ? WHERE user_id = ? AND product_id = ?");
+    $stmt->bind_param("iii", $quantity, $userId, $productId);
+    $success = $stmt->execute();
+    $stmt->close();
+    $conn->close();
+    return $success;
+}
+
 // Сохранение обратной связи
 function saveFeedback($userId, $name, $email, $message) {
     $conn = getDBConnection();

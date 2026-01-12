@@ -36,8 +36,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $stmt->bind_param("sss", $username, $email, $hashed_password);
             
             if ($stmt->execute()) {
-                $success = 'Регистрация успешна! Теперь вы можете войти.';
-                $_POST = [];
+                $userId = $conn->insert_id;
+                $_SESSION['user_id'] = $userId;
+                $_SESSION['username'] = $username;
+                header('Location: index.php');
+                exit;
             } else {
                 $error = 'Ошибка при регистрации. Попробуйте позже.';
             }

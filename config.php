@@ -7,18 +7,18 @@ define('DB_NAME', 'shop_db');
 
 // Подключение к базе данных
 function getDBConnection() {
-    try {
-        $conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
-        $conn->set_charset("utf8mb4");
-        
-        if ($conn->connect_error) {
-            die("Ошибка подключения: " . $conn->connect_error);
-        }
-        
-        return $conn;
-    } catch (Exception $e) {
-        die("Ошибка подключения к БД: " . $e->getMessage());
+    $conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+    
+    if ($conn->connect_error) {
+        die("Ошибка подключения к базе данных: " . $conn->connect_error . 
+            "<br><br>Проверьте:<br>" .
+            "1. MySQL сервер запущен (XAMPP/OpenServer)<br>" .
+            "2. База данных '" . DB_NAME . "' создана<br>" .
+            "3. Настройки в config.php правильные");
     }
+    
+    $conn->set_charset("utf8mb4");
+    return $conn;
 }
 
 // Старт сессии
