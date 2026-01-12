@@ -1,0 +1,133 @@
+<?php
+$pageTitle = 'Главная';
+require_once 'header.php';
+require_once 'functions.php';
+
+$products = getAllProducts();
+$featuredProducts = array_slice($products, 0, 6);
+?>
+
+<div class="hero">
+    <div class="container">
+        <h1>Добро пожаловать в TechShop</h1>
+        <p>Лучшая техника и электроника по доступным ценам</p>
+        <a href="shop.php" class="btn-register" style="display: inline-block; margin-top: 1rem;">Перейти в магазин</a>
+    </div>
+</div>
+
+<div class="container">
+    <!-- Слайдшоу -->
+    <div class="slideshow-container">
+        <img src="https://via.placeholder.com/1200x400/2563eb/ffffff?text=Новинки+2024" alt="Слайд 1" class="slide active">
+        <img src="https://via.placeholder.com/1200x400/1e40af/ffffff?text=Скидки+до+30%" alt="Слайд 2" class="slide">
+        <img src="https://via.placeholder.com/1200x400/3b82f6/ffffff?text=Бесплатная+доставка" alt="Слайд 3" class="slide">
+        
+        <button class="slide-prev">&#10094;</button>
+        <button class="slide-next">&#10095;</button>
+        
+        <div class="slideshow-controls">
+            <span class="slide-dot active" onclick="goToSlide(0)"></span>
+            <span class="slide-dot" onclick="goToSlide(1)"></span>
+            <span class="slide-dot" onclick="goToSlide(2)"></span>
+        </div>
+    </div>
+
+    <!-- О магазине -->
+    <section class="section">
+        <h2 class="section-title">О нашем магазине</h2>
+        <div class="about-content">
+            <p>
+                TechShop - это современный интернет-магазин техники и электроники, где вы найдете все необходимое 
+                для работы, учебы и развлечений. Мы предлагаем широкий ассортимент качественных товаров от ведущих 
+                производителей по выгодным ценам.
+            </p>
+            <p>
+                Наша команда тщательно отбирает каждый товар, чтобы гарантировать высочайшее качество. 
+                Мы работаем только с проверенными поставщиками и предоставляем официальную гарантию на всю продукцию.
+            </p>
+            <p>
+                В нашем магазине вы найдете:
+            </p>
+            <ul style="margin-left: 2rem; margin-top: 1rem; line-height: 2;">
+                <li>Смартфоны и планшеты</li>
+                <li>Ноутбуки и компьютеры</li>
+                <li>Наушники и аудиотехнику</li>
+                <li>Аксессуары и периферию</li>
+                <li>И многое другое</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Популярные товары -->
+    <section class="section">
+        <h2 class="section-title">Популярные товары</h2>
+        <div class="product-grid">
+            <?php foreach ($featuredProducts as $product): ?>
+                <div class="product-card" onclick="window.location.href='product.php?id=<?php echo $product['id']; ?>'">
+                    <div class="product-image">
+                        <?php if ($product['image'] && file_exists($product['image'])): ?>
+                            <img src="<?php echo escape($product['image']); ?>" alt="<?php echo escape($product['name']); ?>">
+                        <?php else: ?>
+                            <i class="fas fa-image"></i>
+                        <?php endif; ?>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name"><?php echo escape($product['name']); ?></h3>
+                        <div class="product-price"><?php echo number_format($product['price'], 0, ',', ' '); ?> ₽</div>
+                        <p class="product-description"><?php echo escape($product['short_description']); ?></p>
+                        <a href="product.php?id=<?php echo $product['id']; ?>" class="btn-view-product">Подробнее</a>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+        </div>
+        <div style="text-align: center; margin-top: 2rem;">
+            <a href="shop.php" class="btn-submit" style="display: inline-block; padding: 1rem 2rem; text-decoration: none;">Смотреть все товары</a>
+        </div>
+    </section>
+
+    <!-- Преимущества -->
+    <section class="section">
+        <h2 class="section-title">Почему выбирают нас</h2>
+        <div class="product-grid" style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));">
+            <div class="product-card" style="cursor: default;">
+                <div class="product-info">
+                    <h3 style="text-align: center; margin-bottom: 1rem;">
+                        <i class="fas fa-shield-alt" style="font-size: 3rem; color: var(--primary-color); display: block; margin-bottom: 1rem;"></i>
+                        Гарантия качества
+                    </h3>
+                    <p style="text-align: center;">Официальная гарантия на всю продукцию от производителя</p>
+                </div>
+            </div>
+            <div class="product-card" style="cursor: default;">
+                <div class="product-info">
+                    <h3 style="text-align: center; margin-bottom: 1rem;">
+                        <i class="fas fa-truck" style="font-size: 3rem; color: var(--primary-color); display: block; margin-bottom: 1rem;"></i>
+                        Быстрая доставка
+                    </h3>
+                    <p style="text-align: center;">Доставка по всей России в кратчайшие сроки</p>
+                </div>
+            </div>
+            <div class="product-card" style="cursor: default;">
+                <div class="product-info">
+                    <h3 style="text-align: center; margin-bottom: 1rem;">
+                        <i class="fas fa-headset" style="font-size: 3rem; color: var(--primary-color); display: block; margin-bottom: 1rem;"></i>
+                        Поддержка 24/7
+                    </h3>
+                    <p style="text-align: center;">Наша служба поддержки всегда готова помочь</p>
+                </div>
+            </div>
+            <div class="product-card" style="cursor: default;">
+                <div class="product-info">
+                    <h3 style="text-align: center; margin-bottom: 1rem;">
+                        <i class="fas fa-ruble-sign" style="font-size: 3rem; color: var(--primary-color); display: block; margin-bottom: 1rem;"></i>
+                        Лучшие цены
+                    </h3>
+                    <p style="text-align: center;">Конкурентные цены и регулярные акции</p>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<?php require_once 'footer.php'; ?>
+
