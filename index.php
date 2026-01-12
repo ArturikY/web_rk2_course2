@@ -16,11 +16,47 @@ $featuredProducts = array_slice($products, 0, 6);
 </div>
 
 <div class="container">
-    <!-- Слайдшоу -->
+    <!-- Слайдшоу преимуществ -->
     <div class="slideshow-container">
-        <img src="https://via.placeholder.com/1200x400/2563eb/ffffff?text=Новинки+2024" alt="Слайд 1" class="slide active">
-        <img src="https://via.placeholder.com/1200x400/1e40af/ffffff?text=Скидки+до+30%" alt="Слайд 2" class="slide">
-        <img src="https://via.placeholder.com/1200x400/3b82f6/ffffff?text=Бесплатная+доставка" alt="Слайд 3" class="slide">
+        <div class="slide slide-advantage active">
+            <div class="slide-content">
+                <div class="slide-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h2>Гарантия качества</h2>
+                <p>Официальная гарантия на всю продукцию от производителя. Мы работаем только с проверенными поставщиками и гарантируем подлинность каждого товара.</p>
+            </div>
+        </div>
+        
+        <div class="slide slide-advantage">
+            <div class="slide-content">
+                <div class="slide-icon">
+                    <i class="fas fa-truck"></i>
+                </div>
+                <h2>Быстрая доставка</h2>
+                <p>Доставка по всей России в кратчайшие сроки. Бесплатная доставка при заказе от 5000 рублей. Курьерская доставка в день заказа доступна в крупных городах.</p>
+            </div>
+        </div>
+        
+        <div class="slide slide-advantage">
+            <div class="slide-content">
+                <div class="slide-icon">
+                    <i class="fas fa-headset"></i>
+                </div>
+                <h2>Поддержка 24/7</h2>
+                <p>Наша служба поддержки всегда готова помочь. Консультации по выбору товара, помощь с оформлением заказа и решение любых вопросов в любое время.</p>
+            </div>
+        </div>
+        
+        <div class="slide slide-advantage">
+            <div class="slide-content">
+                <div class="slide-icon">
+                    <i class="fas fa-ruble-sign"></i>
+                </div>
+                <h2>Лучшие цены</h2>
+                <p>Конкурентные цены и регулярные акции. Следите за нашими специальными предложениями и получайте скидки до 30% на популярные товары.</p>
+            </div>
+        </div>
         
         <button class="slide-prev">&#10094;</button>
         <button class="slide-next">&#10095;</button>
@@ -29,6 +65,7 @@ $featuredProducts = array_slice($products, 0, 6);
             <span class="slide-dot active" onclick="goToSlide(0)"></span>
             <span class="slide-dot" onclick="goToSlide(1)"></span>
             <span class="slide-dot" onclick="goToSlide(2)"></span>
+            <span class="slide-dot" onclick="goToSlide(3)"></span>
         </div>
     </div>
 
