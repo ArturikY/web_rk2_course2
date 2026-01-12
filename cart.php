@@ -30,7 +30,7 @@ $total = 0;
                 <div class="cart-item">
                     <div class="cart-item-image">
                         <?php if ($item['image']): ?>
-                            <img src="<?php echo escape($item['image']); ?>" alt="<?php echo escape($item['name']); ?>" style="width: 100%; height: 100%; object-fit: cover; border-radius: 5px;" onerror="this.onerror=null; this.parentElement.innerHTML='<i class=\'fas fa-image\' style=\'font-size: 3rem; color: var(--text-light);\'></i>';">
+                            <img src="<?php echo escape($item['image']); ?>" alt="<?php echo escape($item['name']); ?>" onerror="this.onerror=null; this.parentElement.innerHTML='<i class=\'fas fa-image\' style=\'font-size: 3rem; color: var(--text-light);\'></i>';">
                         <?php else: ?>
                             <i class="fas fa-image" style="font-size: 3rem; color: var(--text-light);"></i>
                         <?php endif; ?>

@@ -3,7 +3,7 @@
 define('DB_HOST', 'localhost');
 define('DB_USER', 'root');
 define('DB_PASS', '');
-define('DB_NAME', 'shop_db');
+define('DB_NAME', 'web_rk2_course2');
 
 // Подключение к базе данных
 function getDBConnection() {
