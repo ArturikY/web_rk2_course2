@@ -31,8 +31,8 @@ $products = getAllProducts();
                         <tr class="product-row-clickable" onclick="window.location.href='product.php?id=<?php echo $product['id']; ?>'" style="cursor: pointer;">
                             <td>
                                 <div class="table-product-image">
-                                    <?php if ($product['image'] && file_exists($product['image'])): ?>
-                                        <img src="<?php echo escape($product['image']); ?>" alt="<?php echo escape($product['name']); ?>" style="width: 100%; height: 100%; object-fit: cover; border-radius: 5px;">
+                                    <?php if ($product['image']): ?>
+                                        <img src="<?php echo escape($product['image']); ?>" alt="<?php echo escape($product['name']); ?>" style="width: 100%; height: 100%; object-fit: cover; border-radius: 5px;" onerror="this.onerror=null; this.parentElement.innerHTML='<i class=\'fas fa-image\'></i>';">
                                     <?php else: ?>
                                         <i class="fas fa-image"></i>
                                     <?php endif; ?>

@@ -65,8 +65,8 @@ $featuredProducts = array_slice($products, 0, 6);
             <?php foreach ($featuredProducts as $product): ?>
                 <div class="product-card" onclick="window.location.href='product.php?id=<?php echo $product['id']; ?>'">
                     <div class="product-image">
-                        <?php if ($product['image'] && file_exists($product['image'])): ?>
-                            <img src="<?php echo escape($product['image']); ?>" alt="<?php echo escape($product['name']); ?>">
+                        <?php if ($product['image']): ?>
+                            <img src="<?php echo escape($product['image']); ?>" alt="<?php echo escape($product['name']); ?>" onerror="this.onerror=null; this.parentElement.innerHTML='<i class=\'fas fa-image\'></i>';">
                         <?php else: ?>
                             <i class="fas fa-image"></i>
                         <?php endif; ?>

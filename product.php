@@ -28,8 +28,8 @@ if (isLoggedIn()) {
         <div class="product-detail-content">
             <div>
                 <div class="product-detail-image">
-                    <?php if ($product['image'] && file_exists($product['image'])): ?>
-                        <img src="<?php echo escape($product['image']); ?>" alt="<?php echo escape($product['name']); ?>" style="width: 100%; height: 100%; object-fit: cover; border-radius: 10px;">
+                    <?php if ($product['image']): ?>
+                        <img src="<?php echo escape($product['image']); ?>" alt="<?php echo escape($product['name']); ?>" style="width: 100%; height: 100%; object-fit: cover; border-radius: 10px;" onerror="this.onerror=null; this.parentElement.innerHTML='<i class=\'fas fa-image\'></i>';">
                     <?php else: ?>
                         <i class="fas fa-image"></i>
                     <?php endif; ?>
